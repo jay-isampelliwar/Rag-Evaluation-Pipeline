@@ -9,12 +9,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-CHROMA_DB_API_KEY=os.getenv("CHROMA_DB_API_KEY")
-CHROMA_DB_TENANT_KEY=os.getenv("CHROMA_DB_TENANT_KEY")
+CHROMA_API_KEY=os.getenv("CHROMA_API_KEY")
+CHROMA_TENANT=os.getenv("CHROMA_TENANT")
 
 class ChromaDatabase:
 
-    def __init__(self, collection_name: str, database_name: str = "Docs-Test'"):
+    def __init__(self, collection_name: str, database_name: str = "Docs-Test"):
 
         self.collection_name = collection_name
         self.database_name = database_name
@@ -27,21 +27,27 @@ class ChromaDatabase:
 
         try:
 
-            if not CHROMA_DB_API_KEY or len(CHROMA_DB_API_KEY) == 0:
-                raise Exception("CHROMA_DB_API_KEY not initialized")
+            if not CHROMA_API_KEY or len(CHROMA_API_KEY) == 0:
+                raise Exception("CHROMA_API_KEY not initialized")
 
-            if not CHROMA_DB_TENANT_KEY or len(CHROMA_DB_TENANT_KEY) == 0:
+            if not CHROMA_TENANT or len(CHROMA_TENANT) == 0:
                 raise Exception("CHROMA_DB_TENANT_KEY not initialized")
 
-            client = chromadb.CloudClient(
-                api_key=CHROMA_DB_API_KEY,
-                tenant=CHROMA_DB_TENANT_KEY,
+            print("Initializing Chroma Database Client...")
+            self.client = chromadb.CloudClient(
+                api_key=CHROMA_API_KEY,
+                tenant=CHROMA_TENANT,
                 database=self.database_name,
             )
-            self.collection = client.create_collection(name=self.collection_name)
-            self.client = client
+            print("Successfully initialized Chroma Database Client")
+
+
+            print("Creating Collection...")
+            self.collection = self.client.get_or_create_collection(name=self.collection_name)
+            print("Successfully created Collection")
 
         except Exception as e:
+            print(f"Failed to initialize Chroma Database Client \n{e}")
             raise e
 
     def add_documents(self, documents: List[Any], embeddings: np.ndarray):
@@ -52,7 +58,6 @@ class ChromaDatabase:
 
             if len(documents) != len(embeddings):
                 raise ValueError("Length of embeddings should be equal to length of documents")
-
 
             ids = []
             embedding_list = []
@@ -74,6 +79,8 @@ class ChromaDatabase:
                 embedding_list.append(embedding.tolist())
 
 
+            print(f"Adding Documents to Collection {self.collection_name}")
+
             self.collection.add(
                 ids=ids,
                 embeddings=embedding_list,
@@ -81,7 +88,10 @@ class ChromaDatabase:
                 metadatas=metadatas,
             )
 
+            print(f"Successfully added Documents to Collection {self.collection_name}")
+
         except Exception as e:
+            print(f"Failed to add Documents to Collection {self.collection_name} \n{e}")
             raise e
 
 
@@ -95,13 +105,17 @@ class ChromaDatabase:
                 raise Exception("Length of query_embeddings should be equal to length of documents")
 
 
+            print("Querying Documents...")
+
             results = self.collection.querr(
                 query_embeddings=query_embeddings,
                 top_k=top_k,
-
             )
+
+            print(f"Successfully queried {len(results)} Documents")
 
             return results
 
         except Exception as e:
+            print(f"Failed to queried Documents \n{e}")
             raise e
