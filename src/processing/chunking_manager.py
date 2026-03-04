@@ -1,24 +1,22 @@
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-class ChunkingManager:
 
-    def __init__(self, documents):
+class ChunkingManager:
+    def __init__(self, documents) -> None:
         self.documents = documents
 
-
-    def chunk_documents(self , chunk_size=300, chunk_overlap=50):
-
+    def chunk_documents(self, chunk_size: int = 300, chunk_overlap: int = 50):
         try:
+            if not self.documents:
+                raise ValueError("Document is empty")
 
-            if not self.documents or self.documents.empty:
-                raise Exception("Document is empty")
-
-            splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+            splitter = RecursiveCharacterTextSplitter(
+                chunk_size=chunk_size, chunk_overlap=chunk_overlap
+            )
             chunks = splitter.split_documents(documents=self.documents)
 
             return chunks
 
-        except Exception as e:
-            raise e
-
+        except Exception:
+            raise
 
