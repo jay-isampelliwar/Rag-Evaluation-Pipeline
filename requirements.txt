@@ -6,3 +6,5 @@ chromadb
 sentence-transformers
 pymupdf
 langchain_chroma
+fastembed
+snowballstemmer
