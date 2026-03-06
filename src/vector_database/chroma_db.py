@@ -1,23 +1,26 @@
 import os
 from typing import List, Any
 
+from chromadb import Schema, SparseVectorIndexConfig, K, Search, Knn, Rrf
 import chromadb
 import numpy as np
 import uuid
 from dotenv import load_dotenv
+from chromadb.utils.embedding_functions import Bm25EmbeddingFunction
 
 load_dotenv()
 
 
 CHROMA_API_KEY=os.getenv("CHROMA_API_KEY")
 CHROMA_TENANT=os.getenv("CHROMA_TENANT")
+CHROMA_DATABASE=os.getenv("CHROMA_DATABASE")
+SPARSE_EMBEDDING_KEY = "sparse_embedding"
 
 class ChromaDatabase:
 
-    def __init__(self, collection_name: str, database_name: str = "Docs-Test"):
+    def __init__(self, collection_name: str):
 
         self.collection_name = collection_name
-        self.database_name = database_name
         self.client = None
         self.collection = None
         self._initialize()
@@ -37,14 +40,29 @@ class ChromaDatabase:
             self.client = chromadb.CloudClient(
                 api_key=CHROMA_API_KEY,
                 tenant=CHROMA_TENANT,
-                database=self.database_name,
+                database=CHROMA_DATABASE,
+
             )
             print("Successfully initialized Chroma Database Client")
 
+            print("Initializing Chroma Database Collection...")
 
-            print("Creating Collection...")
-            self.collection = self.client.get_or_create_collection(name=self.collection_name)
-            print("Successfully created Collection")
+            sparse_ef = Bm25EmbeddingFunction()
+            schema = Schema()
+            schema.create_index(
+                config=SparseVectorIndexConfig(
+                    bm25=True,
+                    source_key=K.DOCUMENT,
+                    embedding_function=sparse_ef
+                ),
+                key=SPARSE_EMBEDDING_KEY
+            )
+
+            self.collection = self.client.get_or_create_collection(
+                name=self.collection_name,
+                metadata={"hnsw:space": "cosine"},
+                schema=schema,
+            )
 
         except Exception as e:
             print(f"Failed to initialize Chroma Database Client \n{e}")
@@ -69,7 +87,7 @@ class ChromaDatabase:
                 doc_id = f"doc_{uuid.uuid4()}"
                 ids.append(doc_id)
 
-                metadata = current_doc["metadata"]
+                metadata = current_doc.metadata
                 metadata["index"] = i
                 metadata["content_length"] = len(current_doc.page_content)
 
@@ -81,12 +99,16 @@ class ChromaDatabase:
 
             print(f"Adding Documents to Collection {self.collection_name}")
 
-            self.collection.add(
-                ids=ids,
-                embeddings=embedding_list,
-                documents=document_texts,
-                metadatas=metadatas,
-            )
+            batch_size = 300
+            collection = self.client._collection
+
+            for i in range(0, len(ids), batch_size):
+                collection.add(
+                    ids=ids[i:i + batch_size],
+                    documents=document_texts[i:i + batch_size],
+                    embeddings=embedding_list[i:i + batch_size],
+                    metadatas=metadatas[i:i + batch_size]
+                )
 
             print(f"Successfully added Documents to Collection {self.collection_name}")
 
@@ -94,8 +116,7 @@ class ChromaDatabase:
             print(f"Failed to add Documents to Collection {self.collection_name} \n{e}")
             raise e
 
-
-    def get_documents(self, query_embeddings: np.ndarray, top_k : int = 5):
+    def get_documents(self,query_text: str, query_embeddings: np.ndarray, top_k : int = 5, ):
         try:
 
             if not self.collection:
@@ -107,9 +128,20 @@ class ChromaDatabase:
 
             print("Querying Documents...")
 
-            results = self.collection.querr(
-                query_embeddings=query_embeddings,
-                top_k=top_k,
+            hybrid_rank = Rrf(
+                ranks=[
+                    Knn(query=query_embeddings, return_rank=True),
+                    Knn(query=query_text, key=SPARSE_EMBEDDING_KEY, return_rank=True)
+                ],
+                weights=[0.5, 0.5],
+                k=60
+            )
+
+            results = self.collection.search(
+                Search()
+                .rank(hybrid_rank)
+                .limit(top_k)
+                .select(K.DOCUMENT, K.SCORE)
             )
 
             print(f"Successfully queried {len(results)} Documents")
