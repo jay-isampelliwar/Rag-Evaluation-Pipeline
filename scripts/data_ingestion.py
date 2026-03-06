@@ -13,8 +13,8 @@ def run() -> None:
     base_dir = Path(__file__).resolve().parents[1]
     docs_dir = base_dir / "data" / "docs"
 
-    vector_store = ChromaDatabase(collection_name="research-papers")
     embedding_manager = EmbeddingManager()
+    vector_store = ChromaDatabase(collection_name="research-papers")
 
     data_ingestion = DocumentIngestion(
         vector_store=vector_store,
