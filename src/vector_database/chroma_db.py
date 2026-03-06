@@ -1,12 +1,12 @@
 import os
 from typing import List, Any
 
-from chromadb import Schema, SparseVectorIndexConfig, K, Search, Knn, Rrf
+from chromadb import Schema, SparseVectorIndexConfig, K, Search, Knn, Rrf, VectorIndexConfig
 import chromadb
 import numpy as np
 import uuid
 from dotenv import load_dotenv
-from chromadb.utils.embedding_functions import Bm25EmbeddingFunction
+from chromadb.utils.embedding_functions import ChromaBm25EmbeddingFunction
 
 load_dotenv()
 
@@ -47,7 +47,7 @@ class ChromaDatabase:
 
             print("Initializing Chroma Database Collection...")
 
-            sparse_ef = Bm25EmbeddingFunction()
+            sparse_ef = ChromaBm25EmbeddingFunction()
             schema = Schema()
             schema.create_index(
                 config=SparseVectorIndexConfig(
@@ -58,9 +58,10 @@ class ChromaDatabase:
                 key=SPARSE_EMBEDDING_KEY
             )
 
+            schema.create_index(config=VectorIndexConfig(space="cosine"))
+
             self.collection = self.client.get_or_create_collection(
                 name=self.collection_name,
-                metadata={"hnsw:space": "cosine"},
                 schema=schema,
             )
 
@@ -100,10 +101,9 @@ class ChromaDatabase:
             print(f"Adding Documents to Collection {self.collection_name}")
 
             batch_size = 300
-            collection = self.client._collection
 
             for i in range(0, len(ids), batch_size):
-                collection.add(
+                self.collection.add(
                     ids=ids[i:i + batch_size],
                     documents=document_texts[i:i + batch_size],
                     embeddings=embedding_list[i:i + batch_size],
