@@ -10,7 +10,7 @@ class Retriever:
         self.vector_store = vector_store
         self.embedding_manager = embedding_manager
 
-    def retrieve_docs(self, query_text: str, top_k: int = 5 , ) -> List[RetrieverResponseModel]:
+    def retrieve_docs(self, query_text: str, top_k: int = 5 , ) -> RetrieverResponseModel:
 
         try:
             print("Embedding user input..")
@@ -26,13 +26,11 @@ class Retriever:
             sources = self._format_metadata(result_docs=results)
             scores = self._get_scores_from_results(results=results)
 
-            final_results = [RetrieverResponseModel(
-                document_data=document_data,
+            return RetrieverResponseModel(
+                document_data=retrieved_docs,
                 sources_data= sources,
-                scores=scores
-            ) for i, (document_data, source_data, scores) in enumerate(zip(retrieved_docs, sources, scores))]
-
-            return final_results
+                scores= scores
+            )
 
         except Exception as e:
             print("Failed to retrieve documents!")
@@ -43,12 +41,10 @@ class Retriever:
         formatted = []
 
         documents = results.get("documents", [[]])[0] or []
-        scores = results.get("scores", [[]])[0] or []
         ids = results.get("ids", [[]])[0] or []
-        metadatas_raw = results.get("metadatas", [None])[0]  # ← fixed key
-        metadatas = metadatas_raw if isinstance(metadatas_raw, list) else [None] * len(documents)
 
-        for i, (doc, score, doc_id, metadata) in enumerate(zip(documents, scores, ids, metadatas)):
+
+        for i, (doc, doc_id) in enumerate(zip(documents, ids)):
 
             formatted.append(
                 DocumentData(
@@ -64,11 +60,14 @@ class Retriever:
 
         sources = []
 
-        for index, doc in enumerate(result_docs):
-            source = doc["metadata"].get("source", "Unknown").split("/")[-1]
-            page = doc["metadata"].get("page", "Unknown")
-            title = doc["metadata"].get("title", "Unknown")
-            authors = ", ".join(doc["metadata"].get("author", "Unknown").split(";"))
+        metadatas = result_docs.get("metadatas", [None])[0]
+
+
+        for index, metadata in enumerate(metadatas):
+            source = metadata.get("source", "Unknown")
+            page = metadata.get("page", "Unknown")
+            title = metadata.get("title", "Unknown")
+            authors = ", ".join(metadata.get("author", "Unknown").split(";"))
 
             sources.append(
                 SourceData(
@@ -81,6 +80,6 @@ class Retriever:
 
         return sources
 
-    def _get_scores_from_results(self, results: dict) -> list[dict]:
+    def _get_scores_from_results(self, results: dict) -> list[float]:
         scores = results.get("scores", [[]])[0] or []
         return scores
