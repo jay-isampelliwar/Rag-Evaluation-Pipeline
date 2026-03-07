@@ -12,7 +12,6 @@ class Generation:
             base_url="http://127.0.0.1:1234/v1/",
             api_key="",
         )
-        self.retrieval = None
 
     def invoke(self, user_query: str, result_response: RetrieverResponseModel):
         try:
@@ -41,11 +40,35 @@ class Generation:
             return yaml.safe_load(f)
 
 
+
     def _add_citations(self, content: str, sources: list[SourceData]) -> str:
+        def _safe(s) -> str:
+            if s is None or (isinstance(s, str) and not s.strip()):
+                return "Unknown"
+            return str(s).strip()
 
-        citations = [ f"{i + 1}. Title: {source.title} Document: {source.source} Authors: {source.authors}"
-                      for i, source in enumerate(sources)]
+        seen = set()
+        unique_sources = []
+        for source in sources:
+            title = _safe(source.title)
+            doc = _safe(source.source)
+            authors = _safe(source.authors)
+            page = source.page
+            if page is None or (isinstance(page, str) and not str(page).strip()):
+                page_str = "Unknown"
+            else:
+                page_str = str(page)
+            key = (title, doc)
+            if key in seen:
+                continue
+            seen.add(key)
+            unique_sources.append((title, doc, authors, page_str))
 
-        answer_with_citations = content + "\n\nCitations:\n" + "\n".join(citations) if citations else content
+        if not unique_sources:
+            return content
 
-        return answer_with_citations
+        lines = []
+        for i, (title, doc, authors, page_str) in enumerate(unique_sources, 1):
+            lines.append(f"{i}. Title: {title} | Document: {doc} | Page: {page_str} | Authors: {authors}")
+
+        return content + "\n\n**Citations:**\n" + "\n".join(lines)

@@ -141,13 +141,13 @@ class ChromaDatabase:
                 Search()
                 .rank(hybrid_rank)
                 .limit(top_k)
-                .select(K.DOCUMENT, K.SCORE , K.METADATA)
+                .select(K.DOCUMENT, K.SCORE, K.METADATA)
             )
 
-            print(f"Successfully queried {len(results)} Documents")
+            print(f"Successfully queried {top_k} Documents")
 
             return results
 
         except Exception as e:
-            print(f"Failed to queried Documents \n{e}")
+            print(f"Failed to query Documents \n{e}")
             raise e

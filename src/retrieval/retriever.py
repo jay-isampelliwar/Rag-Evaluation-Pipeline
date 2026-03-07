@@ -1,8 +1,9 @@
 
+from typing import List
+
 from src.vector_database.chroma_db import ChromaDatabase
 from src.embedding_manager.embedding_manager import EmbeddingManager
-from model.retriever_response_model import RetrieverResponseModel, SourceData , DocumentData
-from typing import List
+from model.retriever_response_model import RetrieverResponseModel, SourceData, DocumentData
 
 class Retriever:
 
