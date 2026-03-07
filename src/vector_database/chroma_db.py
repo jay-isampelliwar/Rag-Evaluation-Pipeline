@@ -141,7 +141,7 @@ class ChromaDatabase:
                 Search()
                 .rank(hybrid_rank)
                 .limit(top_k)
-                .select(K.DOCUMENT, K.SCORE)
+                .select(K.DOCUMENT, K.SCORE , K.METADATA)
             )
 
             print(f"Successfully queried {len(results)} Documents")
