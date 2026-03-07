@@ -130,7 +130,7 @@ class ChromaDatabase:
 
             hybrid_rank = Rrf(
                 ranks=[
-                    Knn(query=query_embeddings, return_rank=True),
+                    Knn(query=query_embeddings.flatten().tolist(), return_rank=True),
                     Knn(query=query_text, key=SPARSE_EMBEDDING_KEY, return_rank=True)
                 ],
                 weights=[0.5, 0.5],
