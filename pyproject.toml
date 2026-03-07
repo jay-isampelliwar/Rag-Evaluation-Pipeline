@@ -16,4 +16,5 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "sentence-transformers>=5.2.3",
     "snowballstemmer>=3.0.1",
+    "streamlit>=1.55.0",
 ]
