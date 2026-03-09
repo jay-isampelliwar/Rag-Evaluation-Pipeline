@@ -5,11 +5,7 @@ from chromadb import Schema, SparseVectorIndexConfig, K, Search, Knn, Rrf, Vecto
 import chromadb
 import numpy as np
 import uuid
-from dotenv import load_dotenv
 from chromadb.utils.embedding_functions import ChromaBm25EmbeddingFunction
-
-load_dotenv()
-
 
 CHROMA_API_KEY=os.getenv("CHROMA_API_KEY")
 CHROMA_TENANT=os.getenv("CHROMA_TENANT")
