@@ -1,4 +1,6 @@
 from langchain_openai import ChatOpenAI
+
+from model.evaluation_response_model import EvaluationResponseModel
 from model.retriever_response_model import RetrieverResponseModel, SourceData
 import yaml
 
@@ -13,12 +15,12 @@ class Generation:
             api_key="",
         )
 
+        self.prompt_config = self._load_prompt_config()
+
     def invoke(self, user_query: str, result_response: RetrieverResponseModel):
         try:
 
-            prompt_config = self._load_prompt_config()
-
-            prompt_template = prompt_config["prompt_template"]
+            prompt_template = self.prompt_config["prompt_template"]
             context = "\n\n".join(item.content for item in result_response.document_data)
 
             prompt = prompt_template.format(
@@ -27,7 +29,11 @@ class Generation:
             )
 
             llm_response = self.llm.invoke(prompt)
-            answer_with_citations = self._add_citations(content=llm_response.content, sources=result_response.sources_data)
+
+            answer_with_citations = self._add_citations(
+                content=llm_response.content,
+                sources=result_response.sources_data
+            )
 
             return answer_with_citations
 
@@ -35,11 +41,29 @@ class Generation:
             print("An error occured while invoking Agent")
             raise
 
+    def invoke_for_evaluation(self, response: str, expected_answer: str):
+        try:
+
+            prompt_template = self.prompt_config["evaluation_prompt"]
+
+            prompt = prompt_template.format(
+                expected_answer=expected_answer,
+                response=response,
+            )
+
+            llm_response = self.llm.with_structured_output(
+                schema=EvaluationResponseModel
+            ).invoke(prompt)
+
+
+            return llm_response
+
+        except Exception as e:
+            raise
+
     def _load_prompt_config(self, path: str = "configs/prompt.yaml"):
         with open(path, "r") as f:
             return yaml.safe_load(f)
-
-
 
     def _add_citations(self, content: str, sources: list[SourceData]) -> str:
         def _safe(s) -> str:
