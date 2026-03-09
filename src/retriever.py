@@ -1,9 +1,15 @@
+import os
+
 from src.chroma_db import ChromaDatabase
 from src.embedding_manager import EmbeddingManager
 from model.retriever_response_model import RetrieverResponseModel, SourceData, DocumentData
 from cohere import ClientV2
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
+COHERE_API_KEY=os.getenv("COHERE_API_KEY")
 COHERE_MODEL = "rerank-v3.5"
 
 class Retriever:
@@ -61,7 +67,9 @@ class Retriever:
             documents = retrieved_docs.get("documents", [[]])[0] or []
             ids = retrieved_docs.get("ids", [[]])[0] or []
 
-            co = ClientV2()
+            co = ClientV2(
+                api_key=COHERE_API_KEY
+            )
 
             response = co.rerank(
                 model= COHERE_MODEL,

@@ -3,16 +3,14 @@ import glob
 import json
 from typing import List
 
-from rag_pipeline import RagPipeline
+
 from src.retriever import Retriever
 from src.chroma_db import ChromaDatabase
 from src.embedding_manager import EmbeddingManager
-from src.evaluator import Evaluator
+from rag_pipeline import RagPipeline
 from dotenv import load_dotenv
 
-
 load_dotenv()
-
 
 DEFAULT_EVAL_DATASET = "data/evaluation/evaluation_dataset.json"
 CHROMA_COLLECTION=os.getenv("CHROMA_COLLECTION")
@@ -29,7 +27,6 @@ def main():
     pipeline = RagPipeline(
         retriever=retriever,
     )
-
 
     print(f"📊 Evaluating using questions from: {DEFAULT_EVAL_DATASET}")
     with open(DEFAULT_EVAL_DATASET, "r") as file:
