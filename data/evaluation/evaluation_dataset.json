@@ -1,0 +1,304 @@
+[
+  {
+    "question": "GPT-4.1 and similar models can handle way more context (up to 1M tokens) and use it better—so what's still missing when it comes to autonomous decision-making and refining goals over time?",
+    "answer": "They lack intrinsic feedback loops, state management, and multi-step planning. You need those for autonomous decision-making and iterative goal refinement.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 6
+  },
+  {
+    "question": "The doc says Agentic AI can be flexible, adaptive, and collaborative in ways that go beyond a single agent. What actually gives them that edge?",
+    "answer": "Reflective reasoning and memory systems—they let agents store context across interactions, evaluate past decisions, and iteratively refine their strategies. Together that’s what enables the flexible, adaptive, cooperative, collaborative intelligence that exceeds individual agents.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 6
+  },
+  {
+    "question": "What’s at the core of the agent’s intelligence here, and how do they get that “step-by-step” style reasoning in something like AutoGPT?",
+    "answer": "The KRR (Knowledge Representation and Reasoning) module—it applies symbolic, statistical, or hybrid logic using things like rule-based logic (if-then decision trees), workflow engines, or planning graphs. In agents like AutoGPT, reasoning is boosted with function-calling and prompt chaining (e.g. step-by-step prompts or intermediate tool calls) to simulate thought processes.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 10
+  },
+
+  {
+    "question": "How to Customize Agent?",
+    "answer": "Customization of these agents typically involves domain-specific prompt engineering, rule injection, or workflow templates, distinguishing them from hard-coded automation scripts by their ability to make context-aware decisions.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 12
+  },
+  {
+    "question": "How Agents interact via communication channels? What are the different types of communication channels?",
+    "answer": " These agents interact via communication channels (e.g., message queues, blackboards, or shared memory).",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 13
+  },
+  {
+    "question": "When something’s uncertain or partly fails, how do agentic systems still adapt—what’s under the hood?",
+    "answer": "They use iterative reasoning with frameworks like ReAct, Chain-of-Thought (CoT), and Tree of Thoughts. Those let them break a complex task into multiple reasoning stages, evaluate intermediate results, and re-plan on the fly, so the system can respond adaptively to uncertainty or partial failure.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 13
+  },
+  {
+    "question": "The doc gives an example where someone buys gardening tools—what might they get recommended after that, and why does that kind of personalization matter?",
+    "answer": "They may be recommended compatible soil sensors or relevant books. That level of personalization improves engagement, conversion rates, and long-term retention.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 14
+  },
+  {
+    "question": "What is the use of tools like x.ai and Reclaim AI?",
+    "answer": "Tools like x.ai and Reclaim AI interpret vague scheduling commands, access calendar APIs, and identify optimal time slots based on learned user preferences.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 14
+  },
+  {
+    "question": "Which companies did research for 'Model often fail to distinguish between mere association and actual causation.'",
+    "answer": "Research from DeepMind and conceptual analyses by TrueTheta",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 16
+  },
+  {
+    "question": "Where do current AI agents still fall short—what’s the persistent limitation the text points to?",
+    "answer": "They can’t do robust long-horizon planning, especially on complex, multi-stage tasks.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 19
+  },
+  {
+    "question": "What is an error cascade in these systems?",
+    "answer": "When a faulty or hallucinated output from one agent spreads through the system, making inaccuracies worse and corrupting later decisions.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 20
+  },
+  {
+    "question": "What do Reflexion-like mechanisms do, and when do they help most?",
+    "answer": "They support collaborative quality control and make the system more trustworthy. They also enable iterative improvement and adaptive replanning, especially when used with memory logs or feedback queues.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/aavsaa.pdf",
+    "page": 23
+  },
+  {
+    "question": "Where did the relevant documents come from, and what were they used for?",
+    "answer": "They were taken from online databases like PubMed, arXiv, and other academic repositories. Those documents were the knowledge base for the retrieval module.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag.pdf",
+    "page": 6
+  },
+  {
+    "question": "Which algorithms were used for retrieval and which for generation?",
+    "answer": "For retrieval: BM25 and dense vector representations (e.g. Sentence-BERT). For generation: transformer-based models like GPT-3, chosen for high-quality text output.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag.pdf",
+    "page": 6
+  },
+  {
+    "question": "How was the system tested—what kind of setup and tasks?",
+    "answer": "In a controlled environment where users did specific information retrieval tasks. The tasks mimicked real-world scenarios so the system could be evaluated realistically.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag.pdf",
+    "page": 7
+  },
+  {
+    "question": "What was the precision of the Agentic RAG system, and what does that mean?",
+    "answer": "85%. It means a high proportion of the documents retrieved were relevant to the user queries.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag.pdf",
+    "page": 8
+  },
+  {
+    "question": "What was the overall user satisfaction with the Agentic RAG system?",
+    "answer": "Rated at 4.6, meaning users were highly satisfied with the system.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag.pdf",
+    "page": 10
+  },
+  {
+    "question": "What do the results suggest about how well the system serves users?",
+    "answer": "High precision and recall plus positive user feedback suggest the system effectively meets the information needs of diverse users.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag.pdf",
+    "page": 11
+  },
+  {
+    "question": "What research gap does the study say it fills, and how?",
+    "answer": "Integrating agentic capabilities into RAG frameworks had been largely unexplored. This research helps fill that gap by showing such systems work well in real-world scenarios.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag.pdf",
+    "page": 13
+  },
+  {
+    "question": "Who did the research and what were they responsible for?",
+    "answer": "A single author was responsible for everything: conceptualization (research idea and objectives), methodology (research approach and framework), data collection and analysis (qualitative and quantitative), manuscript writing, visualization (figures, graphs, tables), and editing and proofreading.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag.pdf",
+    "page": 14
+  },
+  {
+    "question": "How does Vanilla RAG’s retrieval differ from simpler approaches?",
+    "answer": "It uses a more sophisticated information retrieval mechanism that goes beyond simple temporal ordering.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag2.pdf",
+    "page": 4
+  },
+  {
+    "question": "What CCS computing methodologies are listed?",
+    "answer": "Multi-agent planning, natural language generation, and information extraction.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag2.pdf",
+    "page": 1
+  },
+  {
+    "question": "What does the Item Ranker Agent (IRA) use for ranking?",
+    "answer": "It uses the outputs S_user and S_ctx as context for ranking.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag2.pdf",
+    "page": 3
+  },
+  {
+    "question": "What are the limitations of Naive RAG?",
+    "answer": "Lack of Contextual Awareness, Fragmented Output and Scalability",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 4
+  },
+  {
+    "question": "What is Modular RAG and what does it focus on?",
+    "answer": "It is a newer RAG paradigm that breaks the retrieval and generation pipeline into independent, reusable components, emphasizing flexibility, customization, domain-specific optimization, and task adaptability.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 5
+  },
+  {
+    "question": "What do composable pipelines in Modular RAG allow you to do?",
+    "answer": "They let you replace, enhance, or reconfigure retrievers, generators, and other components independently so the system can adapt to specific use cases.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 5
+  },
+  {
+    "question": "What are three key things Graph RAG can do?",
+    "answer": "It can capture and reason over relationships between entities (node connectivity), manage structured and unstructured data with graph-based hierarchies, and enrich context by using graph-based pathways.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 6
+  },
+  {
+    "question": "According to the text, what are the main limitations still facing these systems?",
+    "answer": "They struggle with contextual integration, multi-step reasoning, and scalability and latency issues.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 7
+  },
+  {
+    "question": "When to use Prompt Chaining Workflow?",
+    "answer": " This workflow is most effective when a task can be broken down into fixed subtasks, each contributing to the final output. It is particularly useful in scenarios where step-by-step reasoning enhances accuracy.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 12
+  },
+  {
+    "question": "What does routing do in this context, and why is it useful?",
+    "answer": "It classifies an input and sends it to a suitable specialized prompt or process, so different queries or tasks are handled separately, which improves efficiency and response quality.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 12
+  },
+  {
+    "question": "What is the main idea behind Corrective RAG, and what two corrective steps can it take?",
+    "answer": "Its core idea is to dynamically evaluate retrieved documents, perform corrective actions, and refine queries to improve response quality. It can (1) have the Relevance Evaluation Agent filter out low-relevance documents, and (2) have the Query Refinement Agent refine or augment the query using semantic understanding.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 19
+  },
+  {
+    "question": "What does “dynamic adaptability” mean here?",
+    "answer": "It means the system can use real-time web searches and refine queries on the fly to get more precise retrieval.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 20
+  },
+  {
+    "question": "What is the key idea behind Agent-G?",
+    "answer": "It dynamically assigns retrieval tasks to specialized agents, using both graph knowledge bases and textual documents.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 24
+  },
+  {
+    "question": "What does Graph Expansion add on top of a base retriever like BM25?",
+    "answer": "It expands retrieval to include graph-structured data so the system can capture complex relationships and dependencies between entities.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/arag3.pdf",
+    "page": 25
+  },
+  {
+    "question": "In Scaled Dot-Product Attention, what do you do with the query–key dot products before turning them into weights on the values?",
+    "answer": "You divide each dot product by the square root of d_k and then apply a softmax to get the weights over the values.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/attention.pdf",
+    "page": 3
+  },
+  {
+    "question": "Why do we use multi-head attention instead of a single attention head?",
+    "answer": "Multi-head attention lets the model attend to information from different representation subspaces at different positions; with just one head, the averaging would inhibit this.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/attention.pdf",
+    "page": 4
+  },
+  {
+    "question": "What dataset and tokenization scheme were used for training, and roughly how big was the vocabulary?",
+    "answer": "They trained on the WMT 2014 English-German dataset with about 4.5 million sentence pairs, using byte-pair encoding with a shared source–target vocabulary of roughly 37,000 tokens.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/attention.pdf",
+    "page": 7
+  },
+  {
+    "question": "Where do they apply residual dropout in the Transformer, and what rate do they use for the base model?",
+    "answer": "They apply dropout to each sub-layer’s output before adding it to the sub-layer input and normalizing, and also to the sum of embeddings and positional encodings in both encoder and decoder stacks. For the base model the dropout rate is 0.1.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/attention.pdf",
+    "page": 7
+  },
+  {
+    "question": "According to the text, what are some of the key challenges that must be solved before LLM agents can be effectively deployed in education?",
+    "answer": "They need to address ethical issues, hallucination, and how to integrate these agents into real-world educational ecosystems.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/llma.pdf",
+    "page": 2
+  },
+  {
+    "question": "In this education setting, what does it mean for LLMs to act as “metacontrollers”?",
+    "answer": "It means they use methods like Pedagogical Steering to stay aligned with teaching goals, which leads to dynamic, emergent curricula that are co-created with students.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/llma.pdf",
+    "page": 3
+  },
+  {
+    "question": "What are teaching-assistance agents trying to achieve, and what are a few example tasks they can help with?",
+    "answer": "They aim to improve teaching quality, enrich student learning, and reduce teacher workload. They can support tasks like classroom simulation, feedback comment generation, and curriculum design.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/llma.pdf",
+    "page": 3
+  },
+
+  {
+    "question": "Which simulation create dynamic and interactive learning environments where educators can experiment with different teaching strategies?",
+    "answer": "Classroom simulation refers to the ability of teaching agents to replicate and model various classroom scenarios, such as student-teacher dialogues, collaborative learning activities, and problem-solving tasks.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/llma.pdf",
+    "page": 3
+  },
+  {
+    "question": "What kind of feedback can teaching assistance agents generate automatically?",
+    "answer": "They can generate timely, relevant, and constructive feedback comments on students’ assignments, quizzes, and projects.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/llma.pdf",
+    "page": 4
+  },
+  {
+    "question": "What does the affective state model from Park et al. (2024) let agents do?",
+    "answer": "It lets agents adjust feedback tone, offer encouragement, and regulate pacing to keep students engaged.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/llma.pdf",
+    "page": 6
+  },
+  {
+    "question": "In the multi-agent adaptive learning setup, what are the five specialized agents and what is their shared goal?",
+    "answer": "The five agents are Gap Identifier, Learner Profiler, Dynamic Learner Simulator, Learning Path Scheduler, and Content Creator; together they collaborate to provide goal-oriented, personalized instruction.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/llma.pdf",
+    "page": 6
+  },
+  {
+    "question": "Why are PDFs so important for RAG systems, according to the text?",
+    "answer": "Because they’re a common way to distribute high-value content—research papers, legal documents, technical manuals, financial reports—containing dense, detailed information, and they cover many data types from scientific data and diagrams to legal terms and financial figures.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/rag1.pdf",
+    "page": 6
+  },
+  {
+    "question": "What are the Challenges of Working with PDFs In RAG?",
+    "answer": "Accurate text extraction from PDFs is essential for effective retrieval and generation. However, PDFs often feature complex layouts—such as multiple columns, headers, footers, and embedded images—that complicate the extraction process.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/rag1.pdf",
+    "page": 7
+  },
+  {
+    "question": "In this RAG setup, what two aspects of the retrieval source can affect the final generation results?",
+    "answer": "The type of retrieval source and the granularity of the retrieval units.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/rag2.pdf",
+    "page": 5
+  },
+  {
+    "question": "What role does a knowledge graph index play when building a document hierarchy?",
+    "answer": "It uses the knowledge graph to construct the hierarchical structure of documents, which helps maintain consistency.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/rag2.pdf",
+    "page": 8
+  },
+  {
+    "question": "What is the main goal of evaluating RAG models in this chapter, and what does the chapter focus on?",
+    "answer": "The goal is to understand and optimize how RAG models perform across different application scenarios. The chapter focuses on the main downstream tasks of RAG, the datasets used, and how to evaluate RAG systems.",
+    "source": "/Volumes/T7/PROJECTS/RAG-Evaluation-Pipeline/data/docs/rag2.pdf",
+    "page": 12
+  }
+]
