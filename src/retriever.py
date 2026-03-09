@@ -60,19 +60,16 @@ class Retriever:
             raise e
 
 
-    def _rerank_docs(self, user_query : str, retrieved_docs : dict, top_k: int = 5) -> list[DocumentData]:
+    def _rerank_docs(self, user_query: str, retrieved_docs: dict, top_k: int = 5) -> list[DocumentData]:
 
         try:
-
             documents = retrieved_docs.get("documents", [[]])[0] or []
             ids = retrieved_docs.get("ids", [[]])[0] or []
 
-            co = ClientV2(
-                api_key=COHERE_API_KEY
-            )
+            co = ClientV2(api_key=COHERE_API_KEY)
 
             response = co.rerank(
-                model= COHERE_MODEL,
+                model=COHERE_MODEL,
                 query=user_query,
                 documents=documents,
                 top_n=top_k,
@@ -80,14 +77,17 @@ class Retriever:
 
             result_indices = [result.index for result in response.results]
 
-            return [ DocumentData(
-                content=documents[index].strip(),
-                rank=i + 1,
-                id=ids,
-            ) for i, (index, ids) in enumerate(zip(result_indices, ids))]
+            return [
+                DocumentData(
+                    content=documents[index].strip(),
+                    rank=i + 1,
+                    id=ids[index],
+                )
+                for i, index in enumerate(result_indices)
+            ]
 
         except Exception as e:
-            raise
+            raise e
 
 
     def _format_chroma_results(self, results: dict) -> list[DocumentData]:
