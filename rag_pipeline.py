@@ -1,5 +1,5 @@
-from src.retrieval.retriever import Retriever
-from src.generation.generation import Generation
+from src.retriever import Retriever
+from src.generation import Generation
 
 class RagPipeline:
 
