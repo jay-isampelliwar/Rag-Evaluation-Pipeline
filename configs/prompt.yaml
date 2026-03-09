@@ -17,3 +17,18 @@ prompt_template: |
   {context}
 
   Answer:
+  
+
+evaluation_prompt: |
+  You are a system that evaluates the correctness of a response.
+
+  Response: {response}
+
+  Expected Answer: {expected_answer}
+
+  Determine whether the response correctly matches the expected answer.
+
+  Be flexible with wording — the response does not need to exactly match the expected answer,
+  but it must convey the same meaning.
+
+  Return only whether the response is correct or not as true or false.
