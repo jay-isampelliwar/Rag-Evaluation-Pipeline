@@ -2,9 +2,9 @@ from pathlib import Path
 
 from langchain_community.document_loaders import DirectoryLoader, PyMuPDFLoader
 
-from ..vector_database.chroma_db import ChromaDatabase
-from ..processing.chunking_manager import ChunkingManager
-from ..embedding_manager.embedding_manager import EmbeddingManager
+from src.chroma_db import ChromaDatabase
+from src.chunking_manager import ChunkingManager
+from src.embedding_manager import EmbeddingManager
 
 
 class DocumentIngestion:

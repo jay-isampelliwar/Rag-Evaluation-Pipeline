@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from src.vector_database.chroma_db import ChromaDatabase
-from src.ingestion.document_ingestion import DocumentIngestion
-from src.embedding_manager.embedding_manager import EmbeddingManager
+from src.chroma_db import ChromaDatabase
+from src.document_ingestion import DocumentIngestion
+from src.embedding_manager import EmbeddingManager
 
 
 def run() -> None:
